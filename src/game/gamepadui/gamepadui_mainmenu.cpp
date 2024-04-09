@@ -115,8 +115,8 @@ void GamepadUIMainMenu::LayoutMainMenu()
     for (int i = 0; i < currentButtons.Count(); i++)
     {
         GamepadUIButton* pButton = currentButtons[i];
-        nY += pButton->GetTall();
-        pButton->SetPos( m_flButtonsOffsetX, GetTall() - nY );
+        nY += pButton->GetWide();
+        pButton->SetPos( GetWide() - nY, m_flButtonsOffsetX);
         nY += m_flButtonSpacing;
     }
 }

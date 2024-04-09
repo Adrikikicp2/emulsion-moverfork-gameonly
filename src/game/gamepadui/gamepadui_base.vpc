@@ -92,6 +92,7 @@ $Project
         $File "gamepadui_savegame.cpp"
         $File "gamepadui_options.cpp"
         $File "gamepadui_util.cpp"
+		$File "gamepadui_credits.cpp"
     }
 
     $Folder "Link Libraries"
