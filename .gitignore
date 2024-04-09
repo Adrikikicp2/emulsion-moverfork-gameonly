@@ -62,6 +62,8 @@ config.cfg
 src/.vs/Game_Emulsion-2010/
 src/.vs/Game_Skeleton-2010/
 src/.vs/Game_Portal2-ASW-2010/
+src/.vs/GamepadUI-2010/
+src/.vs/GamepadUI-2013/
 
 game/emulsion/gameinfo.txt
 game/skeleton/gameinfo.txt
@@ -108,3 +110,6 @@ game/p2asw/bin/client.pdb
 game/p2asw/bin/client.dll
 game/p2asw/bin/server.dll
 game/p2asw/bin/server.pdb
+
+game/emulsion/bin/gamepadui.dll
+game/emulsion/bin/gamepadui.pdb
