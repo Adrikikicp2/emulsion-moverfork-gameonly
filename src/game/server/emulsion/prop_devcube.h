@@ -39,6 +39,7 @@ public:
 	void CubeChooseModel();
 	void CubeActivate();
 	void CubeDeactivate();
+	void Dissolve(inputdata_t &inputdata );
 
 	// note: may be obsolete soon
 	virtual bool IsWeightedCube() const { return true; }

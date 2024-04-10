@@ -35,6 +35,7 @@ END_SEND_TABLE()
 BEGIN_DATADESC(CPropDevCube)
 
 	DEFINE_OUTPUT(m_outFizzled, "OnFizzled"),
+	DEFINE_INPUTFUNC(FIELD_VOID, "dissolve", Dissolve),
 
 END_DATADESC()
 
@@ -44,6 +45,8 @@ CPropDevCube::CPropDevCube() {
 
 void CPropDevCube::Precache() {
 	PrecacheModel(CUBE_WEIGHTED_MDL);
+	PrecacheParticleSystem("dissolve_fallback");
+	PrecacheScriptSound("Prop.Fizzled");
 	BaseClass::Precache();
 }
 
@@ -145,4 +148,12 @@ void CPropDevCube::EndTouch(CBaseEntity* pOther) {
 void CPropDevCube::Event_Killed(const CTakeDamageInfo& info) {
 	m_outFizzled.FireOutput(this, this);
 	BaseClass::BaseClass::Event_Killed(info);
+}
+
+void CPropDevCube::Dissolve( inputdata_t &inputdata ) {
+	BaseClass::BaseClass::EmitSound("Prop.Fizzled");
+	//DispatchParticleEffect("dissolve_fallback");
+	m_outFizzled.FireOutput(this, this);
+	SetOwnerEntity(NULL);
+	UTIL_Remove(this);
 }

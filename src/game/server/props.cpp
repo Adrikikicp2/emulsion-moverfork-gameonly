@@ -2519,6 +2519,7 @@ BEGIN_DATADESC( CPhysicsProp )
 	DEFINE_INPUTFUNC( FIELD_VOID, "Wake", InputWake ),
 	DEFINE_INPUTFUNC( FIELD_VOID, "Sleep", InputSleep ),
 	DEFINE_INPUTFUNC( FIELD_VOID, "DisableFloating", InputDisableFloating ),
+	DEFINE_INPUTFUNC(FIELD_VOID, "dissolve", Dissolve),
 
 	DEFINE_FIELD( m_bAwake, FIELD_BOOLEAN ),
 
@@ -2540,6 +2541,7 @@ BEGIN_DATADESC( CPhysicsProp )
 	DEFINE_OUTPUT( m_OnPlayerUse, "OnPlayerUse" ),
 	DEFINE_OUTPUT( m_OnPlayerPickup, "OnPlayerPickup" ),
 	DEFINE_OUTPUT( m_OnOutOfWorld, "OnOutOfWorld" ),
+	DEFINE_OUTPUT( m_outFizzled, "OnFizzled" ),
 
 	DEFINE_FIELD( m_bThrownByPlayer, FIELD_BOOLEAN ),
 	DEFINE_FIELD( m_bFirstCollisionAfterLaunch, FIELD_BOOLEAN ),
@@ -2591,6 +2593,14 @@ CPhysicsProp::CPhysicsProp( void ) :
 	m_fNextCheckDisableMotionContactsTime( 0 )
 {
 
+}
+
+void CPhysicsProp::Dissolve(inputdata_t &inputdata) {
+	BaseClass::BaseClass::EmitSound("Prop.Fizzled");
+	//DispatchParticleEffect("dissolve_fallback");
+	m_outFizzled.FireOutput(this, this);
+	SetOwnerEntity(NULL);
+	UTIL_Remove(this);
 }
 
 CPhysicsProp::~CPhysicsProp()
@@ -2749,6 +2759,8 @@ void CPhysicsProp::Precache( void )
 		PrecacheModel( STRING( GetModelName() ) );
 		BaseClass::Precache();
 	}
+	PrecacheParticleSystem("dissolve_fallback");
+	PrecacheScriptSound("Prop.Fizzled");
 }
 
 

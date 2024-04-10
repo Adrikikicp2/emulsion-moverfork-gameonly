@@ -372,6 +372,7 @@ public:
 	bool CanBePickedUpByPhyscannon( void );
 	void OnPhysGunPickup( CBasePlayer *pPhysGunUser, PhysGunPickup_t reason );
 	void OnPhysGunDrop( CBasePlayer *pPhysGunUser, PhysGunDrop_t reason );
+	void Dissolve(inputdata_t &inputdata);
 
 	bool GetPropDataAngles( const char *pKeyName, QAngle &vecAngles );
 	float GetCarryDistanceOffset( void );
@@ -431,7 +432,7 @@ private:
 
 protected:
 	CNetworkVar( bool, m_bAwake );
-
+	COutputEvent m_outFizzled;
 
 };
 
