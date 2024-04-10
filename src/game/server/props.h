@@ -16,6 +16,7 @@
 #include "player_pickup.h"
 #include "positionwatcher.h"
 #include "nav_mesh.h"
+#include "particle_parse.h"
 
 //=============================================================================================================
 // PROP TYPES
@@ -373,6 +374,7 @@ public:
 	void OnPhysGunPickup( CBasePlayer *pPhysGunUser, PhysGunPickup_t reason );
 	void OnPhysGunDrop( CBasePlayer *pPhysGunUser, PhysGunDrop_t reason );
 	void Dissolve(inputdata_t &inputdata);
+	void Think();
 
 	bool GetPropDataAngles( const char *pKeyName, QAngle &vecAngles );
 	float GetCarryDistanceOffset( void );

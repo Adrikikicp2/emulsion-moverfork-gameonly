@@ -2597,8 +2597,13 @@ CPhysicsProp::CPhysicsProp( void ) :
 
 void CPhysicsProp::Dissolve(inputdata_t &inputdata) {
 	BaseClass::BaseClass::EmitSound("Prop.Fizzled");
-	//DispatchParticleEffect("dissolve_fallback");
+	DispatchParticleEffect("dissolve", this->GetAbsOrigin(), QAngle(0, 90, 0));
 	m_outFizzled.FireOutput(this, this);
+	BaseClass::BaseClass::SetRenderColor(0, 0, 0);
+	SetNextThink(gpGlobals->curtime + 3);
+}
+
+void CPhysicsProp::Think() {
 	SetOwnerEntity(NULL);
 	UTIL_Remove(this);
 }
@@ -3128,16 +3133,13 @@ int CPhysicsProp::ObjectCaps()
 //-----------------------------------------------------------------------------
 void CPhysicsProp::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
-	CBasePlayer *pPlayer = ToBasePlayer( pActivator );
-	if ( pPlayer )
-	{
-		if ( HasSpawnFlags( SF_PHYSPROP_ENABLE_PICKUP_OUTPUT ) )
-		{
-			m_OnPlayerUse.FireOutput( this, this );
-		}
+	CBasePlayer* pPlayer = ToBasePlayer(pActivator);
 
-		pPlayer->PickupObject( this );
-	}
+	if (!pPlayer)
+		return;
+
+	// TODO: enable and 'on use' output to be fired here
+	pPlayer->PickupObject(this, false);
 }
 
 //-----------------------------------------------------------------------------

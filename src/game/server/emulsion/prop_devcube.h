@@ -40,6 +40,7 @@ public:
 	void CubeActivate();
 	void CubeDeactivate();
 	void Dissolve(inputdata_t &inputdata );
+	void Think();
 
 	// note: may be obsolete soon
 	virtual bool IsWeightedCube() const { return true; }

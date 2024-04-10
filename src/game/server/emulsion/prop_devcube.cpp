@@ -152,8 +152,13 @@ void CPropDevCube::Event_Killed(const CTakeDamageInfo& info) {
 
 void CPropDevCube::Dissolve( inputdata_t &inputdata ) {
 	BaseClass::BaseClass::EmitSound("Prop.Fizzled");
-	//DispatchParticleEffect("dissolve_fallback");
+	DispatchParticleEffect("dissolve", this->GetAbsOrigin(), QAngle(0, 90, 0));
 	m_outFizzled.FireOutput(this, this);
+	BaseClass::BaseClass::SetRenderColor(0, 0, 0);
+	SetNextThink(gpGlobals->curtime + 3);
+}
+
+void CPropDevCube::Think() {
 	SetOwnerEntity(NULL);
 	UTIL_Remove(this);
 }

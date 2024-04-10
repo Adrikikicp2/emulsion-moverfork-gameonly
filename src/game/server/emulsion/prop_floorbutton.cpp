@@ -30,6 +30,8 @@ bool CTriggerFloorButton::PassesTriggerFilters(CBaseEntity* pOther)
 {
 	if (pOther->IsPlayer() || pOther->ClassMatches("prop_weighted_cube"))
 		return true;
+	if (pOther->ClassMatches("prop_physics"))
+		return true;
 	
 	return false;
 }
