@@ -431,6 +431,7 @@ private:
 	int			m_iExploitableByPlayer;
 	bool		m_bHasBeenAwakened;
 	float		m_fNextCheckDisableMotionContactsTime;
+	int			dissolve_timer;
 
 protected:
 	CNetworkVar( bool, m_bAwake );

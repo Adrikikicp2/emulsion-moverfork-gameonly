@@ -2597,15 +2597,20 @@ CPhysicsProp::CPhysicsProp( void ) :
 
 void CPhysicsProp::Dissolve(inputdata_t &inputdata) {
 	BaseClass::BaseClass::EmitSound("Prop.Fizzled");
-	DispatchParticleEffect("dissolve", this->GetAbsOrigin(), QAngle(0, 90, 0));
-	m_outFizzled.FireOutput(this, this);
-	BaseClass::BaseClass::SetRenderColor(0, 0, 0);
-	SetNextThink(gpGlobals->curtime + 3);
+	this->SetGravity(0);
+	SetNextThink(gpGlobals->curtime + 0.01f);
 }
 
 void CPhysicsProp::Think() {
-	SetOwnerEntity(NULL);
-	UTIL_Remove(this);
+	DispatchParticleEffectLink("dissolve_p1", ParticleAttachment_t(PATTACH_ABSORIGIN), this);
+	BaseClass::BaseClass::SetRenderColor(dissolve_timer, dissolve_timer, dissolve_timer);
+	if (dissolve_timer == 0) {
+		m_outFizzled.FireOutput(this, this);
+		SetOwnerEntity(NULL);
+		UTIL_Remove(this);
+	}
+	dissolve_timer = dissolve_timer - 5;
+	SetNextThink(gpGlobals->curtime + 0.01f);
 }
 
 CPhysicsProp::~CPhysicsProp()
@@ -2629,6 +2634,8 @@ bool CPhysicsProp::IsGib()
 void CPhysicsProp::Spawn( )
 {
 	SetNetworkQuantizeOriginAngAngles( true );
+	dissolve_timer = 255;
+	PrecacheParticleSystem("dissolve_p1");
 
 	if (HasSpawnFlags(SF_PHYSPROP_IS_GIB))
 	{
@@ -2764,7 +2771,6 @@ void CPhysicsProp::Precache( void )
 		PrecacheModel( STRING( GetModelName() ) );
 		BaseClass::Precache();
 	}
-	PrecacheParticleSystem("dissolve_fallback");
 	PrecacheScriptSound("Prop.Fizzled");
 }
 
