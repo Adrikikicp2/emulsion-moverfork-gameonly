@@ -270,10 +270,9 @@ GamepadUINewGamePanel::GamepadUINewGamePanel( vgui::Panel *pParent, const char* 
         {
             *ext = 0;
         }
-        const char* pGameDir = COM_GetModDirectory();
 
         char chapterName[64];
-        Q_snprintf( chapterName, sizeof( chapterName ), "#%s_Chapter%s_Title", pGameDir, chapterID );
+        Q_snprintf( chapterName, sizeof( chapterName ), "#Chapter%s_Title", chapterID );
 
         char command[32];
         Q_snprintf( command, sizeof( command ), "chapter %d", i );

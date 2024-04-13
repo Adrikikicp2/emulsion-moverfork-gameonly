@@ -153,7 +153,7 @@ void CPropDevCube::Event_Killed(const CTakeDamageInfo& info) {
 
 void CPropDevCube::Dissolve(inputdata_t &inputdata) {
 	BaseClass::BaseClass::EmitSound("Prop.Fizzled");
-	this->SetGravity(0);
+	BaseClass::BaseClass::SetGravity(0);
 	SetNextThink(gpGlobals->curtime + 0.01f);
 }
 

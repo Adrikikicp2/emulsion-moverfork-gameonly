@@ -2597,7 +2597,7 @@ CPhysicsProp::CPhysicsProp( void ) :
 
 void CPhysicsProp::Dissolve(inputdata_t &inputdata) {
 	BaseClass::BaseClass::EmitSound("Prop.Fizzled");
-	this->SetGravity(0);
+	BaseClass::BaseClass::SetGravity(0);
 	SetNextThink(gpGlobals->curtime + 0.01f);
 }
 
