@@ -13,6 +13,13 @@ enum BUTTON_PEDESTAL_SKIN {
 
 LINK_ENTITY_TO_CLASS(prop_button, CPropPedestalButton)
 
+BEGIN_DATADESC(CPropPedestalButton)
+
+DEFINE_OUTPUT(m_outPressed, "OnPressed"),
+DEFINE_OUTPUT(m_outReset, "OnButtonReset"),
+
+END_DATADESC()
+
 CPropPedestalButton::CPropPedestalButton() {
 	m_bActive = false;
 	m_bIsTimed = false;
@@ -80,6 +87,8 @@ void CPropPedestalButton::ButtonActivate() {
 	SetSequence(m_seqDown);
 	m_bActive = true;
 
+	m_outPressed.FireOutput(this, this);
+
 	if (!m_bIsTimed)
 		m_flDelayTime = gpGlobals->curtime + BUTTON_PEDESTAL_DEACT_DELAY;
 	else
@@ -91,6 +100,6 @@ void CPropPedestalButton::ButtonDeactivate() {
 
 	if (m_bIsTimed) {
 		EmitSound(BUTTON_PEDESTAL_UP_SND);
-		// TODO: fire output timer end
+		m_outReset.FireOutput(this, this);
 	}
 }

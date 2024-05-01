@@ -5,6 +5,7 @@
 
 class CPropPedestalButton : public CBaseAnimating {
 	DECLARE_CLASS(CPropPedestalButton, CBaseAnimating)
+	DECLARE_DATADESC()
 public:
 
 	CPropPedestalButton();
@@ -30,5 +31,9 @@ private:
 	int m_seqUp, m_seqDown, m_seqIdle, m_seqIdleDown;
 	float m_flDelayTime;
 	float m_flTimerDuration;
+
+protected:
+	COutputEvent m_outPressed;
+	COutputEvent m_outReset;
 
 };
