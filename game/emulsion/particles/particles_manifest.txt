@@ -63,6 +63,5 @@
 		//"file"		"!particles/zombie.pcf"
 	
 	"file"		"!particles/fizzler.pcf"
-	"file"		"!particles/dissolve_p1.pcf"
 	"file"		"!particles/paint_splat_stick.pcf"
 }	
