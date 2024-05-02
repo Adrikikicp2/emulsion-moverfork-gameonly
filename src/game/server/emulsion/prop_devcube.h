@@ -60,7 +60,10 @@ public:
 	}
 	virtual void Event_Killed(const CTakeDamageInfo& info) override;
 	virtual bool PassesDamageFilter(const CTakeDamageInfo& info) override { return true; }
+private:
+
 	int			dissolve_timer;
+	int			dissolve_alpha;
 protected:
 
 	CUBE_TYPE m_tType;

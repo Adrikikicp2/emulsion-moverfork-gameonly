@@ -2596,21 +2596,27 @@ CPhysicsProp::CPhysicsProp( void ) :
 }
 
 void CPhysicsProp::Dissolve(inputdata_t &inputdata) {
-	BaseClass::BaseClass::EmitSound("Prop.Fizzled");
-	this->SetGravity(0);
-	this->SetCollisionGroup(COLLISION_GROUP_DISSOLVING);
+	this -> EmitSound("Prop.Fizzled");
+	m_outFizzled.FireOutput(inputdata.pActivator, inputdata.pCaller);
+	this -> SetCollisionGroup(COLLISION_GROUP_DISSOLVING);
 	DispatchParticleEffectLink("dissolve_fallback", PATTACH_ABSORIGIN_FOLLOW, this, this);
+	this -> SetRenderMode(kRenderTransAdd);
+	this -> SetRenderAlpha(255);
 	SetNextThink(gpGlobals->curtime + 0.01f);
 }
 
 void CPhysicsProp::Think() {
-	BaseClass::BaseClass::SetRenderColor(dissolve_timer, dissolve_timer, dissolve_timer);
+	this -> ApplyAbsVelocityImpulse(Vector(0, 0, 19));
+	this -> SetRenderColor(dissolve_timer, dissolve_timer, dissolve_timer);
+	this -> SetRenderAlpha(dissolve_alpha);
 	if (dissolve_timer == 0) {
-		m_outFizzled.FireOutput(this, this);
 		SetOwnerEntity(NULL);
 		UTIL_Remove(this);
 	}
 	dissolve_timer = dissolve_timer - 5;
+	if (dissolve_timer <= 25) {
+		dissolve_alpha = dissolve_alpha - 51;
+	}
 	SetNextThink(gpGlobals->curtime + 0.011f);
 }
 
@@ -2636,7 +2642,7 @@ void CPhysicsProp::Spawn( )
 {
 	SetNetworkQuantizeOriginAngAngles( true );
 	dissolve_timer = 255;
-	PrecacheParticleSystem("dissolve");
+	dissolve_alpha = 255;
 
 	if (HasSpawnFlags(SF_PHYSPROP_IS_GIB))
 	{
@@ -2773,6 +2779,7 @@ void CPhysicsProp::Precache( void )
 		BaseClass::Precache();
 	}
 	PrecacheScriptSound("Prop.Fizzled");
+	PrecacheEffect("dissolve_fallback");
 }
 
 

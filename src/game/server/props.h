@@ -432,6 +432,7 @@ private:
 	bool		m_bHasBeenAwakened;
 	float		m_fNextCheckDisableMotionContactsTime;
 	int			dissolve_timer;
+	int			dissolve_alpha;
 
 protected:
 	CNetworkVar( bool, m_bAwake );

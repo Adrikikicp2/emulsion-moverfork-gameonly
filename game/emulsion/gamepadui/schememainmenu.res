@@ -2,28 +2,29 @@
 {
 	"BaseSettings"
 	{
-		"Logo.OffsetX"							"85"
-		"Logo.OffsetY.MainMenu"					"300" // 290
-		"Logo.OffsetY.InGame"					"340"
+		"Logo.OffsetX"							"530"
+		"Logo.OffsetY.MainMenu"					"30"
+		"Logo.OffsetY.InGame"					"30"
 
 		"Logo.Image"							"gamepadui/emulsion_logo"
 		"Logo.ExtraWidth"						"64"
 		"Logo.ExtraHeight"						"96"
 
-		"Background.Movie"						"media/sp_dem02_background.bik"
+		//"Background.Movie"						"media/two_cubes_background.bik"
+		"Background.Movie"							"media/menu_act01.bik"
 	
-		"Buttons.OffsetX"						"85"
-		"Buttons.OffsetY.MainMenu"				"95"
-		"Buttons.OffsetY.InGame"				"80"
+		"Buttons.OffsetX"						"10"
+		"Buttons.OffsetY.MainMenu"				"0"
+		"Buttons.OffsetY.InGame"				"0"
 		"Buttons.Space"							"6"
 	
-		"Button.Width.Out"						"260"
-		"Button.Width.Over"					"260"
-		"Button.Width.Pressed"					"260"
+		"Button.Width.Out"						"188"
+		"Button.Width.Over"					"188"
+		"Button.Width.Pressed"					"188"
 
 		"Button.Height.Out"					"30"
-		"Button.Height.Over"				"36"
-		"Button.Height.Pressed"				"36"
+		"Button.Height.Over"				"30"
+		"Button.Height.Pressed"				"30"
 
 		"FooterButtons.OffsetX"					"64"
 		"FooterButtons.OffsetY"					"48"
@@ -63,12 +64,12 @@
 		"Button.Background.Over"				"9 28 36 120"
 		"Button.Background.Pressed"				"255 255 255 255"
 
-		"Button.Background.LeftBorder.Out"			"0 0 0 255"
-		"Button.Background.LeftBorder.Over"			"40 240 36 255" // 61 189 237 255 - blue
+		"Button.Background.LeftBorder.Out"			"248 176 123 255"
+		"Button.Background.LeftBorder.Over"			"64 44 120 255"
 		"Button.Background.LeftBorder.Pressed"		"255 255 255 255"
 
 		"Button.Text.Out"						"227 224 224 255"
-		"Button.Text.Over"						"40 240 36 255" // was blue
+		"Button.Text.Over"						"248 176 123 255"
 		"Button.Text.Pressed"					"0 0 0 255"
 
 		"Button.Description.Out"				"0 0 0 0"
