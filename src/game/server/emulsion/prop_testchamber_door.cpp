@@ -165,7 +165,7 @@ void CPropTestChamberDoor::DoorOpen(inputdata_t& input) {
 
 	SetPlaybackRate(1.0f);
 
-	m_outDoorOpened.FireOutput(this, this);
+	m_outDoorOpened.FireOutput(input.pActivator, input.pCaller);
 	AreaPortalOpen();
 
 	EmitSound("prop_portal_door.open");
@@ -182,7 +182,7 @@ void CPropTestChamberDoor::DoorClose(inputdata_t& input) {
 	m_bOpened = false;
 	m_bChangingState = true;
 
-	m_outDoorClosed.FireOutput(this, this);
+	m_outDoorClosed.FireOutput(input.pActivator, input.pCaller);
 
 	EmitSound("prop_portal_door.close");
 }

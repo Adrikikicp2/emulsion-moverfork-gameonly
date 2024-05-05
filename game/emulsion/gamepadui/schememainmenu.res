@@ -64,12 +64,12 @@
 		"Button.Background.Over"				"9 28 36 120"
 		"Button.Background.Pressed"				"255 255 255 255"
 
-		"Button.Background.LeftBorder.Out"			"248 176 123 255"
-		"Button.Background.LeftBorder.Over"			"64 44 120 255"
+		"Button.Background.LeftBorder.Out"			"0 0 0 255"
+		"Button.Background.LeftBorder.Over"			"40 240 36 255" // 61 189 237 255 - blue
 		"Button.Background.LeftBorder.Pressed"		"255 255 255 255"
 
 		"Button.Text.Out"						"227 224 224 255"
-		"Button.Text.Over"						"248 176 123 255"
+		"Button.Text.Over"						"40 240 36 255" // was blue
 		"Button.Text.Pressed"					"0 0 0 255"
 
 		"Button.Description.Out"				"0 0 0 0"
