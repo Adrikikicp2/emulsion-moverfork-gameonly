@@ -160,11 +160,11 @@ void CPropDevCube::Dissolve(inputdata_t &inputdata) {
 	DispatchParticleEffectLink("dissolve_fallback", PATTACH_ABSORIGIN_FOLLOW, this, this);
 	this -> SetRenderMode(kRenderTransAdd);
 	this -> SetRenderAlpha(255);
+	VPhysicsGetObject() -> EnableGravity(false);
 	SetNextThink(gpGlobals->curtime + 0.01f);
 }
 
 void CPropDevCube::Think() {
-	this -> ApplyAbsVelocityImpulse(Vector(0, 0, 19));
 	this -> SetRenderColor(dissolve_timer, dissolve_timer, dissolve_timer);
 	this -> SetRenderAlpha(dissolve_alpha);
 	if (dissolve_timer == 0) {
