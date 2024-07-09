@@ -75,6 +75,13 @@ enum view_id_t
 	VIEW_INTRO_PLAYER = 5,
 	VIEW_INTRO_CAMERA = 6,
 	VIEW_SHADOW_DEPTH_TEXTURE = 7,
+
+#ifdef USE_DEFERRED
+	// @Deferred - Biohazard
+	VIEW_DEFERRED_GBUFFER = 8,
+	VIEW_DEFERRED_SHADOW = 9,
+#endif
+
 	VIEW_ID_COUNT
 };
 view_id_t CurrentViewID();
@@ -151,11 +158,9 @@ struct WaterRenderInfo_t
 	bool m_bReflect : 1;
 	bool m_bRefract : 1;
 	bool m_bReflectEntities : 1;
-	bool m_bReflectOnlyMarkedEntities : 1;
 	bool m_bDrawWaterSurface : 1;
 	bool m_bOpaqueWater : 1;
-	bool m_bPseudoTranslucentWater : 1;
-	bool m_bReflect2DSkybox : 1;
+
 };
 
 //-----------------------------------------------------------------------------
@@ -233,7 +238,7 @@ protected:
 	// More concise version of the above BuildRenderableRenderLists().  Called for shadow depth map rendering
 	void			BuildShadowDepthRenderableRenderLists();
 
-	void			DrawWorld( IMatRenderContext* pRenderContext, float waterZAdjust );
+	void			DrawWorld( float waterZAdjust );
 
 	// Draws all opaque/translucent renderables in leaves that were rendered
 	void			DrawOpaqueRenderables( bool bShadowDepth );
@@ -258,7 +263,7 @@ protected:
 	void			Begin360ZPass();
 	void			End360ZPass();
 
-	virtual bool	ShouldDrawPortals() { return false; }
+
 
 	void ReleaseLists();
 
@@ -436,9 +441,6 @@ public:
 		m_UnderWaterOverlayMaterial.Init( pMaterial );
 	}
 protected:
-	friend class CRendering3dView;
-	friend class CShadowDepthView;
-
 	int				m_BuildWorldListsNumber;
 
 
@@ -451,10 +453,9 @@ protected:
 	bool			DrawOneMonitor( ITexture *pRenderTarget, int cameraNum, C_PointCamera *pCameraEnt, const CViewSetup &cameraView, C_BasePlayer *localPlayer, 
 						int x, int y, int width, int height );
 
-	
 	// Drawing primitives
 	bool			ShouldDrawViewModel( bool drawViewmodel );
-	void			DrawViewModels( const CViewSetup &view, bool drawViewmodel, bool bShadowDepth = false );
+	void			DrawViewModels( const CViewSetup &view, bool drawViewmodel );
 
 	void			PerformScreenSpaceEffects( int x, int y, int w, int h );
 

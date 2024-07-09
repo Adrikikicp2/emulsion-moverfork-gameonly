@@ -11,20 +11,18 @@ $Group "game"
 {
 	"client"
 	"server"
+	"game_shader_dx9"
+	"game_shader_generic_deferred"
 }
 
 $Group "everything"
 {
 	"client"
 	"server"
+	"tier1"
 	"vgui_controls"
-	"particles"
-	"videocfg"
-}
-
-$Group "bones"
-{
-	"bonesetup"
+	"game_shader_dx9"
+	"game_shader_generic_deferred"
 }
 
 $Group "gamepad"

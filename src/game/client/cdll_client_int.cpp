@@ -127,11 +127,14 @@
 #include "c_rumble.h"
 #include "viewpostprocess.h"
 
-#ifdef EMULSION_DLL
+#if defined (EMULSION_DLL)
 #include "c_discord.h"
-#include "paintblob_manager.h"
 #include "dll_patch.h"
+
+#if !defined (VECTRONIC_DLL)
+#include "paintblob_manager.h"
 #endif
+#endif 
 
 #if defined( GAMEPADUI )
 #include "../gamepadui/igamepadui.h"
@@ -308,7 +311,9 @@ bool g_bTextMode = false;
 
 static ConVar *g_pcv_ThreadMode = NULL;
 
-// GAMEPADUI TODO - put this somewhere better. (Madi)
+// GAMEPADUI TODO - put this somewhere better. (Madi) 
+//
+// Nah lol, i'll keep it here. (Klax)
 #if defined( GAMEPADUI )
 const bool IsSteamDeck()
 {
@@ -1005,6 +1010,8 @@ bool InitParticleManager()
 	return true;
 }
 
+#include "..\materialsystem\IShaderSystem.h"
+
 bool InitGameSystems( CreateInterfaceFn appSystemFactory )
 {
 	if (!VGui_Startup( appSystemFactory ))
@@ -1035,7 +1042,7 @@ bool InitGameSystems( CreateInterfaceFn appSystemFactory )
 	IGameSystem::Add( GetPredictionCopyTester() );
 #endif
 
-#if defined(EMULSION_DLL)
+#if defined(EMULSION_DLL) && !defined(VECTRONIC_DLL)
 	IGameSystem::Add(PaintBlobManager_System());
 #endif
 
@@ -1176,6 +1183,8 @@ void nothing() {
 
 }
 
+#include "..\game\shared\emulsion\proxy_filesystem.h"
+
 int CHLClient::Init( CreateInterfaceFn appSystemFactory, CGlobalVarsBase *pGlobals )
 {
 
@@ -1253,6 +1262,8 @@ int CHLClient::Init( CreateInterfaceFn appSystemFactory, CGlobalVarsBase *pGloba
 	if ( (missionchooser = (IASW_Mission_Chooser *)appSystemFactory(ASW_MISSION_CHOOSER_VERSION, NULL)) == NULL )
 		return false;
 #endif
+
+	//g_pFullFileSysPrx = (IFileSysPrx*)filesystem;
 
 	if ( !CommandLine()->CheckParm( "-noscripting") )
 	{

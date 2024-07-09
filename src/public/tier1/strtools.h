@@ -11,7 +11,7 @@
 
 #include <ctype.h>
 #include "tier0/basetypes.h"
-#include "annotations.h"
+#include "tier0/annotations.h"
 
 #ifdef _WIN32
 #pragma once
@@ -144,6 +144,14 @@ inline bool	StringHasPrefixCaseSensitive( const char *str, const char *prefix ) 
 // Normalizes a float string in place.  
 // (removes leading zeros, trailing zeros after the decimal point, and the decimal point itself where possible)
 void			V_normalizeFloatString( char* pFloat );
+
+// reactivedrop
+// this is locale-unaware and therefore faster version of standard isdigit()
+// It also avoids sign-extension errors.
+inline bool V_isdigit(char c)
+{
+	return c >= '0' && c <= '9';
+}
 
 inline bool V_isspace(int c)
 {

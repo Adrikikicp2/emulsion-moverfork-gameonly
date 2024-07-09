@@ -112,13 +112,13 @@
 #include "asw_gamerules.h"
 #endif
 
-#ifdef EMULSION_DLL
+#if defined( EMULSION_DLL ) && !defined( VECTRONIC_DLL )
 #include "paintblob_manager.h"
 #endif
 
 
 
-
+#include <Windows.h>
 
 #ifdef _WIN32
 #include "IGameUIFuncs.h"
@@ -597,7 +597,7 @@ static bool InitGameSystems( CreateInterfaceFn appSystemFactory )
 	}
 #endif // SERVER_USES_VGUI
 
-#if defined(EMULSION_DLL)
+#if defined(EMULSION_DLL) && !defined( VECTRONIC_DLL )
 	IGameSystem::Add(PaintBlobManager_System());
 #endif
 
@@ -632,10 +632,19 @@ static bool InitGameSystems( CreateInterfaceFn appSystemFactory )
 CServerGameDLL g_ServerGameDLL;
 EXPOSE_SINGLE_INTERFACE_GLOBALVAR(CServerGameDLL, IServerGameDLL, INTERFACEVERSION_SERVERGAMEDLL, g_ServerGameDLL);
 
+#include "../game/shared/emulsion/proxy_filesystem.h"
+#include "../game/shared/emulsion/proxy_imaterialsystem.h"
+
+//IFileSysPrx* g_pFullFileSysPrx = nullptr;
+
+#undef AddJob
+
 bool CServerGameDLL::DLLInit( CreateInterfaceFn appSystemFactory, 
 		CreateInterfaceFn physicsFactory, CreateInterfaceFn fileSystemFactory, 
 		CGlobalVars *pGlobals)
 {
+	if (CommandLine()->FindParm("-wegonnarockdowntoelectricavenue"))
+		Sleep(20000);
 
 	COM_TimestampedLog( "ConnectTier1/2/3Libraries - Start" );
 
@@ -706,6 +715,8 @@ bool CServerGameDLL::DLLInit( CreateInterfaceFn appSystemFactory,
 		scriptmanager = (IScriptManager *)appSystemFactory( VSCRIPT_INTERFACE_VERSION, NULL );
 	}
 
+	//g_pMaterialSysASW = &g_matsysasw;
+	//g_pFullFileSysPrx = (IFileSysPrx*)filesystem;
 
 #ifdef SERVER_USES_VGUI
 	// If not running dedicated, grab the engine vgui interface
@@ -774,7 +785,7 @@ bool CServerGameDLL::DLLInit( CreateInterfaceFn appSystemFactory,
 	COM_TimestampedLog( "g_pParticleSystemMgr->Init" );
 	// Initialize the particle system
 	bool bPrecacheParticles = IsPC() && !engine->IsCreatingXboxReslist();
-	if ( !g_pParticleSystemMgr->Init( g_pParticleSystemQuery, bPrecacheParticles ) )
+	if ( !g_pParticleSystemMgr->Init2( g_pParticleSystemQuery, bPrecacheParticles ) )
 	{
 		return false;
 	}
@@ -949,6 +960,7 @@ float CServerGameDLL::GetTickInterval( void ) const
 	return tickinterval;
 }
 
+#undef CreateEvent
 // This is called when a new game is started. (restart, map)
 bool CServerGameDLL::GameInit( void )
 {

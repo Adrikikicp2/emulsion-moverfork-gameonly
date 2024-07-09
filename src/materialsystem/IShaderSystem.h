@@ -62,8 +62,8 @@ public:
 	virtual ShaderAPITextureHandle_t GetShaderAPITextureBindHandle( ITexture *pTexture, int nFrameVar, int nTextureChannel = 0 ) =0;
 
 	// Binds a texture
-	virtual void BindTexture( Sampler_t sampler1, ITexture *pTexture, int nFrameVar = 0 ) = 0;
-	virtual void BindTexture( Sampler_t sampler1, Sampler_t sampler2, ITexture *pTexture, int nFrameVar = 0 ) = 0;
+	virtual void BindTexture( Sampler_t sampler1, int/*TextureBindFlags_t*/ flags, ITexture* pTexture, int nFrameVar = 0) = 0;
+	virtual void BindTexture( Sampler_t sampler1, Sampler_t sampler2, int/*TextureBindFlags_t*/ flags, ITexture *pTexture, int nFrameVar = 0 ) = 0;
 
 	// Takes a snapshot
 	virtual void TakeSnapshot( ) = 0;
@@ -80,7 +80,6 @@ public:
 	// Bind vertex texture
 	virtual void BindVertexTexture( VertexTextureSampler_t vtSampler, ITexture *pTexture, int nFrameVar = 0 ) = 0;
 };
-
 
 //-----------------------------------------------------------------------------
 // The Shader plug-in DLL interface version
