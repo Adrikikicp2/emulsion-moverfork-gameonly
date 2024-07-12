@@ -16,10 +16,8 @@
 		SearchPaths
 		{
 			Game				|gameinfo_path|.
-			Game				pbrtest
-			Game				"D:\theKlaxon\emulsion-sdk\game\pbrtest"
-			Game				"D:\SteamLibrary\steamapps\common\Portal 2\portal2"
-			Game				"D:\SteamLibrary\steamapps\common\Portal 2\update"
+			Game				"C:\Program Files (x86)\Steam\steamapps\common\Portal 2\portal2"
+			Game				"C:\Program Files (x86)\Steam\steamapps\common\Portal 2\update"
 		}
 	}
 }

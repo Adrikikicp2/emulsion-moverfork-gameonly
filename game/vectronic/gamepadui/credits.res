@@ -40,6 +40,14 @@
 		"priority"		"5"
 	}
 
+	"TheMoverCell"
+	{
+		"text"			"#Credits_TheMoverCell"
+		"description"	"#Credits_Programmer"
+		"command"		""
+		"priority"		"5"
+	}
+
 	"Blank0"
 	{
 		"text"			""
