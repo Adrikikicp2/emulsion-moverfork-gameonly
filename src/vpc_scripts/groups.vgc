@@ -12,20 +12,20 @@ $Group "game"
 	"client"
 	"server"
 	"game_shader_dx9"
-	"game_shader_generic_deferred"
 }
 
 $Group "everything"
 {
-	"client"
-	"server"
+	"fgdlib"
+	"interfaces"
 	"tier1"
 	"vgui_controls"
+	"client"
+	"server"
 	"game_shader_dx9"
-	"game_shader_generic_deferred"
-}
-
-$Group "gamepad"
-{
+	"particles_dll"
 	"gamepadui"
+	//"resourcesystem"
+	//"framework2"
+	//"video_services"
 }

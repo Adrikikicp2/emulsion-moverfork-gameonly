@@ -14,11 +14,11 @@ $Configuration
 	$Compiler
 	{
 		$AdditionalIncludeDirectories	"$BASE;.\hl2;$SRCDIR\game\shared\hl2;.\emulsion;.\multiplayer;$SRCDIR\game\shared\multiplayer;$SRCDIR\game\shared\emulsion;$SRCDIR\game\shared\swarm"
-		$PreprocessorDefinitions		"$BASE;EMULSION_DLL;SWARM_DLL;"
+		$PreprocessorDefinitions		"$BASE;EMULSION_DLL;SWARM_DLL;PARTICLES2;"
 	}
 }
 
-$Project "Server (Emulsion)"
+$Project "server (Emulsion)"
 {
 	$Folder	"Source Files"
 	{
@@ -34,9 +34,7 @@ $Project "Server (Emulsion)"
 				$File	"$SRCDIR\game\shared\emulsion\emulsion_parsers.cpp"
 				$File	"$SRCDIR\game\shared\emulsion\paintblob_manager.cpp"
 				$File	"$SRCDIR\game\shared\emulsion\paintblob_manager.h"
-				$File	"$SRCDIR\game\shared\emulsion\proxy_filesystem.h"
-				$File	"$SRCDIR\game\shared\emulsion\proxy_imaterialsystem.cpp"
-				$File	"$SRCDIR\game\shared\emulsion\proxy_imatrendercontext.h"
+
 				$File	"$SRCDIR\game\shared\predicted_viewmodel.cpp"
 				$File	"$SRCDIR\game\shared\predicted_viewmodel.h"
 			}
@@ -49,7 +47,6 @@ $Project "Server (Emulsion)"
 			$File	"emulsion\emulsion_player.cpp"
 			$File	"emulsion\emulsion_playermove.cpp"
 			$File	"emulsion\weapon_paintgun.cpp"
-			$File	"emulsion\weapon_placement.cpp"
 
 			$File	"emulsion\paintblob_stream.cpp"
 			$File	"emulsion\paintblob_stream.h"
@@ -72,5 +69,9 @@ $Project "Server (Emulsion)"
 			$File 	"moverfork\info_placement_helper.cpp"
 			$File 	"moverfork\weapon_opencapture_camera.cpp"
 		}
+	}
+
+	$Folder	"Link Libraries"
+	{
 	}
 }

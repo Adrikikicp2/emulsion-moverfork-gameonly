@@ -59,6 +59,12 @@ IWorldRendererMgr *g_pWorldRendererMgr;
 IVGuiRenderSurface *g_pVGuiRenderSurface;
 IMatchFramework *g_pMatchFramework;
 IGameUISystemMgr *g_pGameUISystemMgr;
+IPhysics* g_pPhysics;
+IPhysicsSurfaceProps* g_pPhysicsProps;
+IVEfx* g_pVFX;
+
+// chroma source
+IFramework2* g_pFramework2;
 
 struct InterfaceGlobals_t
 {
@@ -127,7 +133,10 @@ static const InterfaceGlobals_t g_pInterfaceGlobals[] =
 	{ WORLD_RENDERER_MGR_INTERFACE_VERSION, &g_pWorldRendererMgr },
 	{ RENDER_SYSTEM_SURFACE_INTERFACE_VERSION, &g_pVGuiRenderSurface },
 	{ MATCHFRAMEWORK_INTERFACE_VERSION, &g_pMatchFramework },
-	{ GAMEUISYSTEMMGR_INTERFACE_VERSION, &g_pGameUISystemMgr }
+	{ GAMEUISYSTEMMGR_INTERFACE_VERSION, &g_pGameUISystemMgr },
+	{ VPHYSICS_SURFACEPROPS_INTERFACE_VERSION, &g_pPhysicsProps },
+	{ VENGINE_EFFECTS_INTERFACE_VERSION, &g_pVFX },
+	{ FRAMEWORK2_INTERFACE_VERSION, &g_pFramework2 },
 };
 
 static const int NUM_INTERFACES = sizeof(g_pInterfaceGlobals) / sizeof(InterfaceGlobals_t);

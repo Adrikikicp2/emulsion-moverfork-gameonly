@@ -19,6 +19,16 @@ $Project "tier1"
 	"tier1\tier1.vpc"
 }
 
+$Project "fgdlib"
+{
+	"fgdlib\fgdlib.vpc"
+}
+
+$Project "interfaces"
+{
+	"interfaces/interfaces.vpc"
+}
+
 // game stuff
 $Project "client"
 {
@@ -50,8 +60,39 @@ $Project "game_shader_generic_deferred"
 	"materialsystem\deferredshaders\game_shader_generic_deferred.vpc" [$VECTRONIC]
 }
 
+$Project "particles_dll"
+{
+	"particles_dll/particles_dll.vpc"
+}
+
+$Project "resourcesystem"
+{
+	"resourcesystem/resourcesystem.vpc"
+}
+
+$Project "video_services"
+{
+	"video_services/video_services/video_services.vpc"
+}
+
+$Project "framework2"
+{
+	"framework2/framework2.vpc"
+}
+
 // utils
 $Project "vbsp"
 {
 	"utils\vbsp\vbsp.vpc"
 }
+
+$Project "vrad"
+{
+	"utils\vrad\vrad_dll.vpc"
+}
+
+$Project "vvis"
+{
+	"utils\vvis\vvis_dll.vpc"
+}
+

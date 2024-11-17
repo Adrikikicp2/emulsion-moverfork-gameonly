@@ -7,6 +7,7 @@
 ConVar bounce_paint_color("bounce_paint_color", "0 165 255 255", FCVAR_REPLICATED);
 ConVar speed_paint_color("speed_paint_color", "255 106 0 255", FCVAR_REPLICATED);
 ConVar portal_paint_color("portal_paint_color", "0 200 33 255", FCVAR_REPLICATED); // p2ce's green (i was allowed to use it) -Klax
+ConVar fifth_paint_color("fifth_paint_color", "251 255 0 255", FCVAR_REPLICATED);
 //ConVar portal_paint_color("portal_paint_color", "15 252 11 255", FCVAR_REPLICATED); // i like greemn -Klax
 
 #define	HL2_BOB_CYCLE_MIN	1.0f
@@ -31,11 +32,15 @@ public:
 
 	virtual void	AddViewmodelBob(CBaseViewModel* viewmodel, Vector& origin, QAngle& angles);
 	virtual	float	CalcViewmodelBob();
+	virtual void	CalcViewModelLag(Vector& origin, QAngle& angles, QAngle& original_angles);
+	//virtual void	CalcViewModelView(CBasePlayer* owner, const Vector& eyePosition, const QAngle& eyeAngles);
 	virtual bool	ShouldDrawCrosshair(void) { return true; }
 
 	void PostDataUpdate(DataUpdateType_t updateType);
 
 private:
+
+	Vector m_vecLastFacing;
 
 	float m_flVerticalBob;
 	float m_flLateralBob;
@@ -164,6 +169,70 @@ void C_WeaponPaintgun::AddViewmodelBob(CBaseViewModel* viewmodel, Vector& origin
 	forward = rotMatrix * forward;
 
 	VectorAngles(forward, up, angles);
+	
+	// calc the lag
+	QAngle originalang = EyeAngles();
+	CalcViewModelLag(origin, angles, originalang);
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
+float g_fMaxViewModelLag = 1.5f;
+
+void C_WeaponPaintgun::CalcViewModelLag(Vector& origin, QAngle& angles, QAngle& original_angles)
+{
+	Vector vOriginalOrigin = origin;
+	QAngle vOriginalAngles = angles;
+
+	// Calculate our drift
+	Vector	forward;
+	AngleVectors(angles, &forward, NULL, NULL);
+
+	if (gpGlobals->frametime != 0.0f)
+	{
+		Vector vDifference;
+		VectorSubtract(forward, m_vecLastFacing, vDifference);
+
+		float flSpeed = 5.0f;
+
+		// If we start to lag too far behind, we'll increase the "catch up" speed.  Solves the problem with fast cl_yawspeed, m_yaw or joysticks
+		//  rotating quickly.  The old code would slam lastfacing with origin causing the viewmodel to pop to a new position
+		float flDiff = vDifference.Length();
+		if ((flDiff > g_fMaxViewModelLag) && (g_fMaxViewModelLag > 0.0f))
+		{
+			float flScale = flDiff / g_fMaxViewModelLag;
+			flSpeed *= flScale;
+		}
+
+		// FIXME:  Needs to be predictable?
+		VectorMA(m_vecLastFacing, flSpeed * gpGlobals->frametime, vDifference, m_vecLastFacing);
+		// Make sure it doesn't grow out of control!!!
+		VectorNormalize(m_vecLastFacing);
+		VectorMA(origin, 5.0f, vDifference * -1.0f, origin);
+
+		Assert(m_vecLastFacing.IsValid());
+	}
+
+	Vector right, up;
+	AngleVectors(original_angles, &forward, &right, &up);
+
+	float pitch = original_angles[PITCH];
+	if (pitch > 180.0f)
+		pitch -= 360.0f;
+	else if (pitch < -180.0f)
+		pitch += 360.0f;
+
+	if (g_fMaxViewModelLag == 0.0f)
+	{
+		origin = vOriginalOrigin;
+		angles = vOriginalAngles;
+	}
+
+	//FIXME: These are the old settings that caused too many exposed polys on some models
+	VectorMA(origin, -pitch * 0.035f, forward, origin);
+	VectorMA(origin, -pitch * 0.03f, right, origin);
+	VectorMA(origin, -pitch * 0.02f, up, origin);
 }
 
 void C_WeaponPaintgun::PostDataUpdate(DataUpdateType_t updateType) {
@@ -179,6 +248,9 @@ void C_WeaponPaintgun::PostDataUpdate(DataUpdateType_t updateType) {
 		break;
 	case PORTAL_POWER:		
 		pPlayer->GetViewModel(0)->SetRenderColor(portal_paint_color.GetColor().r(), portal_paint_color.GetColor().g(), portal_paint_color.GetColor().b());
+		break;
+	case FIFTH_POWER:
+		pPlayer->GetViewModel(0)->SetRenderColor(fifth_paint_color.GetColor().r(), fifth_paint_color.GetColor().g(), fifth_paint_color.GetColor().b());
 		break;
 	default:
 		break;

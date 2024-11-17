@@ -4,6 +4,7 @@
 #include "c_weapon__stubs.h"
 #include "hud_basechat.h"
 #include "iinput.h"
+#include "dll_patch.h"
 
 ConVar default_fov( "default_fov", "90", FCVAR_CHEAT );
 
@@ -69,6 +70,8 @@ IClientMode* GetFullscreenClientMode()
     ModeManager
 ******************/
 
+ConVarRef mat_queue_mode("mat_queue_mode");
+
 class SkeletonModeManager : public IVModeManager
 {
 	void Init()
@@ -78,6 +81,9 @@ class SkeletonModeManager : public IVModeManager
 			ACTIVE_SPLITSCREEN_PLAYER_GUARD( i );
 			g_pClientMode[ i ] = GetClientModeNormal();
 		}
+
+		// TODO: remove this when mat_queue_mode + render ropes no longer hangs :/
+		mat_queue_mode.SetValue(0);
 	}
 	
 	void SwitchMode( bool commander, bool force ) {}
@@ -92,9 +98,14 @@ class SkeletonModeManager : public IVModeManager
 		GetFullscreenClientMode()->LevelInit(newmap);
 
 		engine->ClientCmd("r_flashlightbrightness 2");
+
+		// patch the dlls
+		PatchAll();
 	}
 	void LevelShutdown()
 	{
+		UnPatchAll();
+
 		for( int i = 0; i < MAX_SPLITSCREEN_PLAYERS; ++i )
 		{
 			ACTIVE_SPLITSCREEN_PLAYER_GUARD( i );

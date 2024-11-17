@@ -18,6 +18,8 @@
 			Game				|gameinfo_path|.
 			Game				"C:\Program Files (x86)\Steam\steamapps\common\Portal 2\portal2"
 			Game				"C:\Program Files (x86)\Steam\steamapps\common\Portal 2\update"
+			Game				pbrtest
+			Game				emulsion
 		}
 	}
 }

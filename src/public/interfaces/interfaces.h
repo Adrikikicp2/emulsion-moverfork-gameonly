@@ -89,6 +89,13 @@ class IMeshSystem;
 class IWorldRendererMgr;
 class ISceneSystem;
 class IVGuiRenderSurface;
+class IPhysics;
+class IPhysicsCollision;
+class IPhysicsSurfaceProps;
+class IVEfx;
+
+// chroma source
+class IFramework2;
 
 namespace vgui
 {
@@ -133,7 +140,9 @@ DECLARE_TIER3_INTERFACE( vgui::ILocalize, g_pVGuiLocalize );
 DECLARE_TIER2_INTERFACE( IRenderDeviceMgr, g_pRenderDeviceMgr );
 
 #define FILESYSTEM_INTERFACE_VERSION			"VFileSystem017"
+#ifndef PARTICLES_DLL
 DECLARE_TIER2_INTERFACE( IFileSystem, g_pFullFileSystem );
+#endif
 
 #define ASYNCFILESYSTEM_INTERFACE_VERSION		"VNewAsyncFileSystem001"
 DECLARE_TIER2_INTERFACE( IAsyncFileSystem, g_pAsyncFileSystem );
@@ -142,8 +151,10 @@ DECLARE_TIER2_INTERFACE( IAsyncFileSystem, g_pAsyncFileSystem );
 DECLARE_TIER2_INTERFACE( IResourceSystem, g_pResourceSystem );
 
 #define MATERIAL_SYSTEM_INTERFACE_VERSION		"VMaterialSystem080"
+#ifndef PARTICLES_DLL
 DECLARE_TIER2_INTERFACE( IMaterialSystem, materials );
 DECLARE_TIER2_INTERFACE( IMaterialSystem, g_pMaterialSystem );
+#endif
 
 #define MATERIAL_SYSTEM2_INTERFACE_VERSION		"VMaterialSystem2_001"
 DECLARE_TIER2_INTERFACE( IMaterialSystem2, g_pMaterialSystem2 );
@@ -261,14 +272,27 @@ DECLARE_TIER3_INTERFACE( IBik, g_pBIK );
 #define DMEMAKEFILE_UTILS_INTERFACE_VERSION		"VDmeMakeFileUtils001"
 DECLARE_TIER3_INTERFACE( IDmeMakefileUtils, g_pDmeMakefileUtils );
 
-#define VPHYSICS_COLLISION_INTERFACE_VERSION	"VPhysicsCollision007"
-DECLARE_TIER3_INTERFACE( IPhysicsCollision, g_pPhysicsCollision );
-
 #define SOUNDEMITTERSYSTEM_INTERFACE_VERSION	"VSoundEmitter003"
 DECLARE_TIER3_INTERFACE( ISoundEmitterSystemBase, g_pSoundEmitterSystem );
 
 #define WORLD_RENDERER_MGR_INTERFACE_VERSION	"WorldRendererMgr001"
 DECLARE_TIER3_INTERFACE( IWorldRendererMgr, g_pWorldRendererMgr );
+
+#define VPHYSICS_INTERFACE_VERSION	"VPhysics031"
+DECLARE_TIER1_INTERFACE(IPhysics, g_pPhysics);
+
+#define VPHYSICS_COLLISION_INTERFACE_VERSION	"VPhysicsCollision007"
+DECLARE_TIER3_INTERFACE(IPhysicsCollision, g_pPhysicsCollision);
+
+#define VPHYSICS_SURFACEPROPS_INTERFACE_VERSION	"VPhysicsSurfaceProps001"
+DECLARE_TIER1_INTERFACE(IPhysicsSurfaceProps, g_pPhysicsProps);
+
+#define VENGINE_EFFECTS_INTERFACE_VERSION "VEngineEffects001"
+DECLARE_TIER1_INTERFACE(IVEfx, g_pVFX);
+
+// chroma source
+#define FRAMEWORK2_INTERFACE_VERSION "Framework2_001"
+DECLARE_TIER1_INTERFACE(IFramework2, g_pFramework2);
 
 //-----------------------------------------------------------------------------
 // Fills out global DLL exported interface pointers
