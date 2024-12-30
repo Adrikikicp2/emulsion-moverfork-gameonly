@@ -1,4 +1,0 @@
-//
-//
-// Addtional model 3 shaders go here 
-//
