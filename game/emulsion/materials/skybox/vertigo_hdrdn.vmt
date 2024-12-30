@@ -1,6 +1,0 @@
-"sky"
-{
-	"$hdrcompressedTexture" "skybox/vertigo_hdrdn"
-	"$nofog" 1
-	$ignorez 1
-}

@@ -1,6 +1,0 @@
-"unlitGeneric"
-{
-	"$baseTexture" "skybox/cs_tibetlf"
-	"$nofog" 1
-	$ignorez 1
-}
